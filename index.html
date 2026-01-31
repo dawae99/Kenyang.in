@@ -2,86 +2,52 @@
 <html lang="id" class="h-full bg-gray-50">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kenyang.in - Kantin Sekolah Digital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kenyang.in</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#059669', 
-                        secondary: '#10b981',
-                        dark: '#047857',
-                        accent: '#F59E0B'
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #059669; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:0 0}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}.loader{border:3px solid #f3f3f3;border-top:3px solid #059669;border-radius:50%;width:20px;height:20px;animation:spin 1s linear infinite}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.fade-in{animation:fadeIn .3s ease-in-out}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
     </style>
 </head>
-<body class="text-gray-800 h-full font-sans antialiased overflow-x-hidden">
+<body class="text-gray-800 h-full font-sans antialiased overflow-x-hidden selection:bg-green-100">
 
-    <div id="notificationArea" class="fixed top-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+    <div id="notificationArea" class="fixed top-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none w-full max-w-xs px-4 sm:px-0 ml-auto"></div>
 
     <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-green-50 to-emerald-100">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 relative overflow-hidden fade-in">
-            <div class="h-2 w-full bg-primary absolute top-0 left-0"></div>
-            
+            <div class="h-2 w-full bg-[#059669] absolute top-0 left-0"></div>
             <div class="flex flex-col items-center mb-6">
                 <div class="w-24 h-24 rounded-full border-4 border-green-100 shadow-lg overflow-hidden mb-3 bg-white flex items-center justify-center group">
                     <img src="./logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Kenyang+In&background=059669&color=fff&size=128'" class="w-full h-full object-cover transition transform group-hover:scale-110">
                 </div>
                 <h1 class="text-3xl font-bold text-gray-800">Kenyang.in</h1>
-                <p class="text-gray-500 text-sm">Sistem Kantin Digital</p>
             </div>
-
-            <div class="flex bg-gray-100 p-1 rounded-lg mb-6">
-                <button onclick="switchLoginTab('student')" id="tabStudent" class="flex-1 py-2 rounded-md text-sm font-bold shadow-sm bg-white text-primary transition-all">Siswa</button>
+            <div id="loginTabs" class="flex bg-gray-100 p-1 rounded-lg mb-6">
+                <button onclick="switchLoginTab('student')" id="tabStudent" class="flex-1 py-2 rounded-md text-sm font-bold shadow-sm bg-white text-[#059669] transition-all">Siswa</button>
                 <button onclick="switchLoginTab('seller')" id="tabSeller" class="flex-1 py-2 rounded-md text-sm font-bold text-gray-500 hover:text-gray-700 transition-all">Penjual</button>
             </div>
-
             <form id="authForm" onsubmit="handleAuth(event)" class="space-y-4">
                 <input type="hidden" id="authType" value="student">
-                
                 <div id="nameField" class="hidden">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-                    <input type="text" id="inputName" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                    <input type="text" id="inputName" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#059669] outline-none bg-gray-50 focus:bg-white transition">
                 </div>
-
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-                    <input type="text" id="inputUsername" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                    <input type="text" id="inputUsername" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#059669] outline-none bg-gray-50 focus:bg-white transition">
                 </div>
-                
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" id="inputPassword" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                    <input type="password" id="inputPassword" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#059669] outline-none bg-gray-50 focus:bg-white transition">
                 </div>
-
-                <button type="submit" id="btnSubmit" class="w-full bg-primary hover:bg-dark text-white font-bold py-3 rounded-lg shadow-lg transition flex justify-center gap-2 items-center">
+                <button type="submit" id="btnSubmit" class="w-full bg-[#059669] hover:bg-[#047857] text-white font-bold py-3 rounded-lg shadow-lg transition flex justify-center gap-2 items-center active:scale-95">
                     <span>Masuk</span>
                 </button>
             </form>
-
             <p class="mt-6 text-center text-sm text-gray-500">
                 <span id="toggleText">Belum punya akun?</span> 
-                <a href="#" onclick="toggleRegisterMode()" class="text-primary font-bold hover:underline">Daftar disini</a>
+                <a href="#" onclick="toggleRegisterMode()" class="text-[#059669] font-bold hover:underline">Daftar disini</a>
             </p>
         </div>
     </div>
@@ -91,48 +57,50 @@
             <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full border border-gray-200 overflow-hidden">
-                        <img src="./logo.png" onerror="this.src='https://ui-avatars.com/api/?name=User&background=random'" class="w-full h-full object-cover">
+                        <img src="./logokenyang.png" onerror="this.src='https://ui-avatars.com/api/?name=User&background=random'" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <h1 class="font-bold text-gray-800 leading-none">Hai, <span id="studentWelcomeName">Siswa</span>!</h1>
-                        <p class="text-xs text-gray-500">Mau makan apa hari ini?</p>
                     </div>
                 </div>
                 <button onclick="logout()" class="text-red-500 text-xs font-bold border border-red-200 px-3 py-1.5 rounded-full hover:bg-red-50">Log Out</button>
             </div>
-            
             <div class="max-w-4xl mx-auto px-4 mt-2 flex gap-4 text-sm font-bold border-b">
-                <button onclick="switchStudentTab('menu')" id="btnTabMenu" class="py-2 border-b-2 border-primary text-primary">Daftar Menu</button>
+                <button onclick="switchStudentTab('menu')" id="btnTabMenu" class="py-2 border-b-2 border-[#059669] text-[#059669]">Menu</button>
                 <button onclick="switchStudentTab('history')" id="btnTabHistory" class="py-2 border-b-2 border-transparent text-gray-500">Pesanan Saya</button>
             </div>
         </header>
 
         <main id="viewStudentMenu" class="max-w-4xl mx-auto px-4 mt-4 fade-in">
-            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3 mb-6">
-                <div class="text-2xl">📢</div>
+            <div id="timeWarning" class="hidden bg-orange-100 border border-orange-200 rounded-xl p-3 flex items-start gap-3 mb-4">
+                <div class="text-xl">?</div>
                 <div>
-                    <h3 class="font-bold text-blue-800 text-sm">Info Pembayaran</h3>
-                    <p class="text-xs text-blue-600 mt-1">Setelah pesan, silakan upload bukti transfer/QRIS di menu <b>"Pesanan Saya"</b> agar pesanan diproses.</p>
+                    <h3 class="font-bold text-orange-800 text-sm">Pemesanan Hari Ini Ditutup</h3>
+                    <p class="text-xs text-orange-700 mt-1">Sekarang sudah lewat jam 07:20 WIB. Pesanan Anda akan dicatat untuk <b>BESOK</b>.</p>
                 </div>
             </div>
-
             <div id="menuContainer" class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="col-span-full text-center py-10 text-gray-400">Sedang memuat menu...</div>
             </div>
         </main>
 
         <main id="viewStudentHistory" class="max-w-4xl mx-auto px-4 mt-4 hidden fade-in">
-            <h3 class="font-bold text-gray-800 mb-4">Riwayat Pesanan Anda</h3>
-            <div id="studentHistoryContainer" class="space-y-4">
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3 mb-6">
+                <div class="text-xl">??</div>
+                <div>
+                    <h3 class="font-bold text-blue-800 text-xs">Info Pembayaran</h3>
+                    <p class="text-[10px] text-blue-600 mt-1">Upload bukti transfer/QRIS agar pesanan diproses.</p>
                 </div>
+            </div>
+            <div id="studentHistoryContainer" class="space-y-4"></div>
         </main>
 
         <div id="cartFloatBtn" class="fixed bottom-4 left-0 right-0 px-4 flex justify-center z-50">
             <button onclick="toggleCart()" class="bg-gray-900 text-white pl-5 pr-2 py-3 rounded-full shadow-2xl flex items-center gap-4 max-w-sm w-full transform transition hover:scale-105 active:scale-95">
                 <div class="font-bold flex-1 text-left" id="cartTotalDisplay">Rp 0</div>
                 <div class="flex items-center gap-2">
-                    <span class="text-sm opacity-90">Lihat Keranjang</span>
-                    <span id="cartCountBadge" class="bg-primary text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full">0</span>
+                    <span class="text-sm opacity-90">Keranjang</span>
+                    <span id="cartCountBadge" class="bg-[#059669] text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full">0</span>
                 </div>
             </button>
         </div>
@@ -145,23 +113,27 @@
                 <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
             </div>
             
-            <div id="cartItemsContainer" class="p-4 overflow-y-auto flex-1 space-y-3 min-h-[150px]">
-                <p class="text-center text-gray-500 py-10">Keranjang kosong</p>
+            <div id="cartItemsContainer" class="p-4 overflow-y-auto flex-1 space-y-3 min-h-[100px]"></div>
+            
+            <div class="px-4 py-3 bg-yellow-50 border-t border-b text-sm">
+                <label class="block font-bold text-gray-700 mb-1 text-xs uppercase">Waktu Pengambilan</label>
+                <select id="pickupTime" class="w-full border p-2 rounded text-sm bg-white outline-none focus:ring-1 focus:ring-[#059669]">
+                    <option value="Istirahat 1">Istirahat 1</option>
+                    <option value="Istirahat 2">Istirahat 2</option>
+                </select>
             </div>
 
-            <div class="px-4 py-3 bg-gray-50 border-t border-b text-xs text-gray-600">
-                <p class="font-bold mb-1">Metode Pembayaran Tersedia:</p>
+            <div class="px-4 py-3 bg-gray-50 border-b text-xs text-gray-600">
+                <p class="font-bold mb-1">Metode Pembayaran:</p>
                 <div id="paymentMethodsList" class="flex gap-2 overflow-x-auto"></div>
             </div>
 
             <div class="p-4 bg-white border-t rounded-b-2xl shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
                 <div class="flex justify-between mb-4 font-bold text-lg">
-                    <span>Total Bayar:</span>
-                    <span id="cartFinalTotal" class="text-primary">Rp 0</span>
+                    <span>Total:</span>
+                    <span id="cartFinalTotal" class="text-[#059669]">Rp 0</span>
                 </div>
-                <button onclick="submitOrder()" id="btnOrder" class="w-full bg-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-dark transition">
-                    Pesan Sekarang
-                </button>
+                <button onclick="submitOrder()" id="btnOrder" class="w-full bg-[#059669] text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-[#047857] transition">Pesan Sekarang</button>
             </div>
         </div>
     </div>
@@ -170,24 +142,16 @@
         <header class="bg-white border-b sticky top-0 z-30 px-4 py-3 shadow-sm">
             <div class="max-w-6xl mx-auto flex justify-between items-center">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-full border overflow-hidden bg-primary/10">
+                    <div class="w-8 h-8 rounded-full border overflow-hidden bg-[#059669]/10">
                         <img src="./logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Seller'" class="w-full h-full object-cover">
                     </div>
                     <h1 class="font-bold text-gray-800 hidden sm:block">Dapur Kantin</h1>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="showSummaryModal()" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-indigo-700 shadow flex items-center gap-1">
-                        📋 Rekap Dapur
-                    </button>
-                    <button onclick="showPaymentSettings()" class="bg-amber-100 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-amber-200 border border-amber-200">
-                        ⚙️ Pembayaran
-                    </button>
-                    <button onclick="openProductModal()" class="bg-primary text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-dark shadow">
-                        + Menu
-                    </button>
-                    <button onclick="logout()" class="bg-white text-red-500 px-3 py-1.5 rounded-lg text-xs font-bold border border-red-100 hover:bg-red-50">
-                        Keluar
-                    </button>
+                    <button onclick="showSummaryModal()" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-indigo-700 shadow">?? Rekap</button>
+                    <button onclick="showPaymentSettings()" class="bg-amber-100 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-amber-200 border border-amber-200">?? Bayar</button>
+                    <button onclick="openProductModal()" class="bg-[#059669] text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-[#047857] shadow">+ Menu</button>
+                    <button onclick="logout()" class="bg-white text-red-500 px-3 py-1.5 rounded-lg text-xs font-bold border border-red-100 hover:bg-red-50">Keluar</button>
                 </div>
             </div>
         </header>
@@ -196,27 +160,22 @@
             <div class="lg:col-span-2 space-y-4">
                 <div class="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-gray-200">
                     <h2 class="font-bold text-gray-800 flex items-center gap-2">
-                        📥 Pesanan Masuk
+                        ?? Pesanan Masuk
                         <span id="orderCountBadge" class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full hidden">0</span>
                     </h2>
-                    <button onclick="loadSellerOrders()" class="text-xs text-primary font-bold hover:underline">Refresh</button>
+                    <button onclick="requestNotificationPermission()" class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded border border-blue-100 hover:bg-blue-100">?? Aktifkan Notifikasi</button>
                 </div>
-                
-                <div id="ordersContainer" class="space-y-3 pb-20">
-                    <div class="text-center py-10 text-gray-400 bg-white rounded-xl border border-dashed border-gray-300">Belum ada pesanan masuk</div>
-                </div>
+                <div id="ordersContainer" class="space-y-3 pb-20"></div>
             </div>
 
             <div class="space-y-4">
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-gray-500 text-xs font-bold uppercase mb-1">Total Pendapatan (Lunas)</h3>
-                    <p class="text-3xl font-bold text-primary" id="todayRevenue">Rp 0</p>
+                    <h3 class="text-gray-500 text-xs font-bold uppercase mb-1">Pendapatan (Lunas)</h3>
+                    <p class="text-3xl font-bold text-[#059669]" id="todayRevenue">Rp 0</p>
                 </div>
-                
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex-1">
                     <h3 class="font-bold text-gray-800 mb-3 text-sm">Manajemen Menu</h3>
-                    <div id="sellerProductList" class="space-y-2 max-h-[500px] overflow-y-auto pr-1">
-                        </div>
+                    <div id="sellerProductList" class="space-y-2 max-h-[500px] overflow-y-auto pr-1"></div>
                 </div>
             </div>
         </main>
@@ -224,114 +183,83 @@
 
     <div id="productModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[70] p-4 backdrop-blur-sm">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 max-h-[90vh] overflow-y-auto fade-in">
-            <h2 class="text-xl font-bold mb-4" id="modalTitle">Tambah Menu Baru</h2>
+            <h2 class="text-xl font-bold mb-4" id="modalTitle">Tambah Menu</h2>
             <form onsubmit="handleProductSave(event)" class="space-y-3">
                 <input type="hidden" id="editProductId">
-                
+                <input type="text" id="prodName" placeholder="Nama Makanan" required class="w-full border p-2 rounded text-sm outline-none focus:ring-1 focus:ring-[#059669]">
+                <input type="number" id="prodPrice" placeholder="Harga" required class="w-full border p-2 rounded text-sm outline-none focus:ring-1 focus:ring-[#059669]">
+                <textarea id="prodDesc" placeholder="Deskripsi" class="w-full border p-2 rounded text-sm h-20 outline-none focus:ring-1 focus:ring-[#059669]"></textarea>
                 <div>
-                    <label class="text-xs font-bold text-gray-500">Nama Makanan</label>
-                    <input type="text" id="prodName" required class="w-full border p-2 rounded text-sm focus:border-primary outline-none focus:ring-1 focus:ring-primary">
+                    <label class="text-xs font-bold text-gray-500">Foto</label>
+                    <input type="file" id="prodImage" accept="image/*" class="w-full border p-2 rounded text-xs bg-gray-50">
                 </div>
-                
-                <div>
-                    <label class="text-xs font-bold text-gray-500">Harga (Rp)</label>
-                    <input type="number" id="prodPrice" required class="w-full border p-2 rounded text-sm focus:border-primary outline-none focus:ring-1 focus:ring-primary">
-                </div>
-                
-                <div>
-                    <label class="text-xs font-bold text-gray-500">Deskripsi</label>
-                    <textarea id="prodDesc" class="w-full border p-2 rounded text-sm h-20 focus:border-primary outline-none focus:ring-1 focus:ring-primary"></textarea>
-                </div>
-
-                <div>
-                    <label class="text-xs font-bold text-gray-500">Foto Makanan</label>
-                    <input type="file" id="prodImage" accept="image/*" class="w-full border p-2 rounded text-xs bg-gray-50 file:mr-4 file:py-2 file:px-4 file:rounded-l file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white hover:file:bg-dark">
-                </div>
-
                 <div class="flex items-center gap-2 bg-red-50 p-2 rounded border border-red-100">
                     <input type="checkbox" id="prodSoldOut" class="w-4 h-4 text-red-600 rounded">
-                    <label for="prodSoldOut" class="text-xs font-bold text-red-700">Tandai Stok Habis (Sold Out)</label>
+                    <label for="prodSoldOut" class="text-xs font-bold text-red-700">Stok Habis (Sold Out)</label>
                 </div>
-
                 <div class="flex gap-2 mt-4 pt-2 border-t">
                     <button type="button" onclick="document.getElementById('productModal').classList.add('hidden')" class="flex-1 py-2 text-gray-600 bg-gray-100 rounded text-sm font-bold">Batal</button>
-                    <button type="submit" id="btnSaveProd" class="flex-1 py-2 bg-primary text-white rounded text-sm font-bold shadow">Simpan</button>
+                    <button type="submit" id="btnSaveProd" class="flex-1 py-2 bg-[#059669] text-white rounded text-sm font-bold shadow">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
 
     <div id="paymentModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[70] p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 fade-in">
-            <h2 class="text-xl font-bold mb-2">Metode Pembayaran</h2>
-            <p class="text-xs text-gray-500 mb-4">Tambahkan opsi pembayaran untuk siswa.</p>
-            
-            <form onsubmit="handlePaymentSave(event)" class="space-y-3">
-                <div>
-                    <label class="text-xs font-bold text-gray-500">Nama Bank / E-Wallet</label>
-                    <input type="text" id="payType" placeholder="Contoh: QRIS BCA / DANA" required class="w-full border p-2 rounded text-sm">
-                </div>
-                
-                <div>
-                    <label class="text-xs font-bold text-gray-500">Nomor Rekening (Opsional)</label>
-                    <input type="text" id="payNumber" placeholder="123xxxxx" class="w-full border p-2 rounded text-sm">
-                </div>
-
-                <div>
-                    <label class="text-xs font-bold text-gray-500">Upload Gambar QRIS</label>
-                    <input type="file" id="payImage" accept="image/*" class="w-full border p-2 rounded text-xs bg-gray-50 file:mr-4 file:py-2 file:px-4 file:rounded-l file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-white">
-                </div>
-
-                <div class="flex gap-2 mt-4">
-                    <button type="button" onclick="document.getElementById('paymentModal').classList.add('hidden')" class="flex-1 py-2 text-gray-600 bg-gray-100 rounded text-sm font-bold">Tutup</button>
-                    <button type="submit" id="btnSavePay" class="flex-1 py-2 bg-amber-600 text-white rounded text-sm font-bold shadow">Simpan</button>
-                </div>
-            </form>
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 fade-in max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Metode Pembayaran</h2>
+                <button onclick="document.getElementById('paymentModal').classList.add('hidden')" class="text-gray-400 font-bold text-xl">&times;</button>
+            </div>
+            <div class="mb-6">
+                <h3 class="text-xs font-bold text-gray-500 mb-2 uppercase">Daftar Aktif</h3>
+                <div id="existingPaymentList" class="space-y-2"></div>
+            </div>
+            <div class="border-t pt-4">
+                <h3 class="text-xs font-bold text-gray-500 mb-2 uppercase">Tambah Baru</h3>
+                <form onsubmit="handlePaymentSave(event)" class="space-y-3">
+                    <input type="text" id="payType" placeholder="Nama Bank / E-Wallet" required class="w-full border p-2 rounded text-sm">
+                    <input type="text" id="payNumber" placeholder="No. Rekening" class="w-full border p-2 rounded text-sm">
+                    <div>
+                        <label class="text-xs font-bold text-gray-500">QRIS (Opsional)</label>
+                        <input type="file" id="payImage" accept="image/*" class="w-full border p-2 rounded text-xs bg-gray-50">
+                    </div>
+                    <button type="submit" id="btnSavePay" class="w-full py-2 bg-amber-600 text-white rounded text-sm font-bold shadow hover:bg-amber-700">Tambah Metode</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <div id="summaryModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[80] p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 fade-in">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 fade-in h-[85vh] flex flex-col">
             <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h2 class="text-xl font-bold text-gray-800">📋 Rekap Dapur</h2>
+                <h2 class="text-xl font-bold text-gray-800">?? Rekap Dapur (Lunas)</h2>
                 <button onclick="document.getElementById('summaryModal').classList.add('hidden')" class="text-gray-400 hover:text-red-500 text-xl font-bold">&times;</button>
             </div>
-            
-            <div class="bg-yellow-50 p-3 rounded-lg text-xs text-yellow-800 mb-3">
-                Hanya menghitung pesanan yang statusnya <b>Pending</b> atau <b>Dibayar</b> (Belum Selesai).
+            <div class="bg-green-50 p-3 rounded-lg text-xs text-green-800 mb-3">Hanya menampilkan pesanan <b>LUNAS</b> yang belum selesai.</div>
+            <div id="summaryContent" class="space-y-4 overflow-y-auto flex-1 text-sm border p-2 rounded bg-gray-50"></div>
+            <div class="flex gap-2 mt-4 pt-2 border-t">
+                <button onclick="copySummary()" class="flex-1 bg-gray-800 text-white py-2 rounded-lg text-sm font-bold hover:bg-black">Salin Teks</button>
+                <button onclick="downloadExcel()" class="flex-1 bg-green-600 text-white py-2 rounded-lg text-sm font-bold hover:bg-green-700">Download Excel</button>
             </div>
-
-            <div id="summaryContent" class="space-y-2 max-h-[60vh] overflow-y-auto">
-                </div>
-
-            <button onclick="copySummary()" class="w-full mt-4 bg-gray-800 text-white py-2 rounded-lg text-sm font-bold">Salin Text</button>
         </div>
     </div>
 
     <div id="imageViewerModal" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[90] p-4" onclick="this.classList.add('hidden')">
         <img id="imageViewerContent" src="" class="max-w-full max-h-[90vh] rounded shadow-2xl">
-        <p class="absolute bottom-5 text-white text-sm bg-black/50 px-3 py-1 rounded">Klik layar untuk menutup</p>
+        <p class="absolute bottom-5 text-white text-sm bg-black/50 px-3 py-1 rounded">Ketuk layar untuk menutup</p>
     </div>
 
     <script>
-        // ================= KONFIGURASI PENTING =================
         const SUPABASE_URL = 'https://xckedpfcmwjotvhchomy.supabase.co'; 
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhja2VkcGZjbXdqb3R2aGNob215Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5Nzk1NDcsImV4cCI6MjA4NDU1NTU0N30.twPD_qWyFLtvIffGmNJXzOLnEQ6YOpJ-NicRk95glTw'; 
-        // =======================================================
 
         let db;
-        try {
-            if(window.supabase) {
-                db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-            }
-        } catch(e) { console.error("Supabase Error:", e); }
-
-        // Global State
+        try { if(window.supabase) db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) {}
         let currentUser = JSON.parse(localStorage.getItem('kenyang_user')) || null;
         let cart = [];
         let isRegister = false;
 
-        // --- INIT ---
         function init() {
             if (currentUser) {
                 document.getElementById('loginScreen').classList.add('hidden');
@@ -340,20 +268,17 @@
             }
         }
 
-        // --- AUTH ---
         function switchLoginTab(type) {
             const btnS = document.getElementById('tabStudent');
             const btnP = document.getElementById('tabSeller');
-            const field = document.getElementById('authType');
-            
             if(type === 'student') {
-                btnS.className = "flex-1 py-2 rounded-md text-sm font-bold shadow-sm bg-white text-primary transition-all";
+                btnS.className = "flex-1 py-2 rounded-md text-sm font-bold shadow-sm bg-white text-[#059669] transition-all";
                 btnP.className = "flex-1 py-2 rounded-md text-sm font-bold text-gray-500 hover:text-gray-700 transition-all";
-                field.value = 'student';
+                document.getElementById('authType').value = 'student';
             } else {
-                btnP.className = "flex-1 py-2 rounded-md text-sm font-bold shadow-sm bg-white text-primary transition-all";
+                btnP.className = "flex-1 py-2 rounded-md text-sm font-bold shadow-sm bg-white text-[#059669] transition-all";
                 btnS.className = "flex-1 py-2 rounded-md text-sm font-bold text-gray-500 hover:text-gray-700 transition-all";
-                field.value = 'seller';
+                document.getElementById('authType').value = 'seller';
             }
         }
 
@@ -362,15 +287,20 @@
             const nameDiv = document.getElementById('nameField');
             const btn = document.getElementById('btnSubmit');
             const txt = document.getElementById('toggleText');
+            const tabs = document.getElementById('loginTabs');
             
             if(isRegister) {
                 nameDiv.classList.remove('hidden');
-                btn.innerHTML = '<span>Daftar Akun Baru</span>';
-                txt.innerHTML = `Sudah punya akun? <a href="#" onclick="toggleRegisterMode()" class="text-primary font-bold hover:underline">Login</a>`;
+                tabs.classList.add('hidden');
+                document.getElementById('authType').value = 'student';
+                btn.innerHTML = '<span>Daftar Akun Siswa</span>';
+                txt.innerHTML = `Sudah punya akun? <a href="#" onclick="toggleRegisterMode()" class="text-[#059669] font-bold hover:underline">Login</a>`;
             } else {
                 nameDiv.classList.add('hidden');
+                tabs.classList.remove('hidden');
+                switchLoginTab('student');
                 btn.innerHTML = '<span>Masuk</span>';
-                txt.innerHTML = `Belum punya akun? <a href="#" onclick="toggleRegisterMode()" class="text-primary font-bold hover:underline">Daftar disini</a>`;
+                txt.innerHTML = `Belum punya akun? <a href="#" onclick="toggleRegisterMode()" class="text-[#059669] font-bold hover:underline">Daftar disini</a>`;
             }
         }
 
@@ -379,7 +309,6 @@
             const btn = document.getElementById('btnSubmit');
             const originalText = btn.innerHTML;
             btn.innerHTML = '<div class="loader"></div>'; btn.disabled = true;
-
             const u = document.getElementById('inputUsername').value;
             const p = document.getElementById('inputPassword').value;
             const t = document.getElementById('authType').value;
@@ -387,51 +316,45 @@
 
             try {
                 if(isRegister) {
-                    const { error } = await db.from('users').insert([{ username: u, password: p, name: n, type: t }]);
+                    const { error } = await db.from('users').insert([{ username: u, password: p, name: n, type: 'student' }]);
                     if(error) throw error;
-                    showToast('Berhasil daftar! Silakan login.', 'success');
-                    toggleRegisterMode();
+                    showToast('Berhasil daftar!', 'success'); toggleRegisterMode();
                 } else {
                     const { data, error } = await db.from('users').select('*').eq('username', u).eq('password', p).eq('type', t).single();
-                    if(error || !data) throw new Error('Username atau password salah.');
-                    
-                    currentUser = data;
-                    localStorage.setItem('kenyang_user', JSON.stringify(data));
-                    init();
+                    if(error || !data) throw new Error('Login gagal.');
+                    currentUser = data; localStorage.setItem('kenyang_user', JSON.stringify(data)); init();
                 }
-            } catch(err) {
-                showToast(err.message, 'error');
-            } finally {
-                btn.innerHTML = originalText; btn.disabled = false;
-            }
+            } catch(err) { showToast(err.message, 'error'); } 
+            finally { btn.innerHTML = originalText; btn.disabled = false; }
         }
 
         function logout() {
-            if(confirm("Yakin ingin keluar?")) {
-                localStorage.removeItem('kenyang_user');
-                location.reload();
-            }
+            if(confirm("Keluar?")) { localStorage.removeItem('kenyang_user'); location.reload(); }
         }
 
-        // --- UPLOAD HELPER (FIXED) ---
+        function requestNotificationPermission() {
+            if ("Notification" in window && Notification.permission !== "denied") Notification.requestPermission();
+        }
+
+        function sendPushNotification(title, body) {
+            if (Notification.permission === "granted") {
+                try { new Notification(title, { body: body, icon: './logo.png' }); } catch(e){}
+            }
+            const ctx = new (window.AudioContext||window.webkitAudioContext)();
+            const o = ctx.createOscillator(); const g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.type='sine'; o.frequency.value=600; 
+            g.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.5);
+            o.start(); setTimeout(()=>o.stop(),500);
+        }
+
         async function uploadImage(file, folder = 'menu') {
             if(!file) return null;
-            // Sanitasi nama file agar aman
-            const fileExt = file.name.split('.').pop();
-            const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-            
-            const { data, error } = await db.storage.from('images').upload(fileName, file, {
-                cacheControl: '3600',
-                upsert: false
-            });
-
-            if(error) {
-                console.error("Upload error detail:", error);
-                throw new Error("Gagal upload gambar. Cek setting storage Supabase.");
-            }
-            
-            const { data: publicUrl } = db.storage.from('images').getPublicUrl(fileName);
-            return publicUrl.publicUrl;
+            const ext = file.name.split('.').pop();
+            const name = `${folder}/${Date.now()}_${Math.random().toString(36).substr(2,5)}.${ext}`;
+            const { error } = await db.storage.from('images').upload(name, file);
+            if(error) throw error;
+            return db.storage.from('images').getPublicUrl(name).data.publicUrl;
         }
 
         function viewImage(url) {
@@ -440,84 +363,45 @@
             document.getElementById('imageViewerModal').classList.add('flex');
         }
 
-        // --- LOGIKA SISWA ---
-        function switchStudentTab(tab) {
-            const btnMenu = document.getElementById('btnTabMenu');
-            const btnHist = document.getElementById('btnTabHistory');
-            const viewMenu = document.getElementById('viewStudentMenu');
-            const viewHist = document.getElementById('viewStudentHistory');
-            const cartBtn = document.getElementById('cartFloatBtn');
-
-            if(tab === 'menu') {
-                btnMenu.className = "py-2 border-b-2 border-primary text-primary";
-                btnHist.className = "py-2 border-b-2 border-transparent text-gray-500";
-                viewMenu.classList.remove('hidden');
-                viewHist.classList.add('hidden');
-                cartBtn.classList.remove('hidden');
-            } else {
-                btnHist.className = "py-2 border-b-2 border-primary text-primary";
-                btnMenu.className = "py-2 border-b-2 border-transparent text-gray-500";
-                viewHist.classList.remove('hidden');
-                viewMenu.classList.add('hidden');
-                cartBtn.classList.add('hidden');
-                loadStudentOrderHistory(); // Load data
-            }
-        }
-
         async function showStudentDashboard() {
             document.getElementById('studentDashboard').classList.remove('hidden');
             document.getElementById('studentWelcomeName').innerText = currentUser.name.split(' ')[0];
-            loadMenuStudent();
             
-            // Listen for update
+            const now = new Date();
+            const limit = new Date(); limit.setHours(7,20,0);
+            if(now > limit) document.getElementById('timeWarning').classList.remove('hidden');
+
+            loadMenuStudent();
             db.channel('public:orders').on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, payload => {
-                if(payload.new.student_name === currentUser.name) {
-                    if(payload.new.status === 'completed') showToast('✅ Pesananmu selesai!', 'success');
-                    loadStudentOrderHistory();
-                }
+                if(payload.new.student_name === currentUser.name && payload.new.status === 'completed') showToast('? Pesananmu selesai!', 'success');
+                if(payload.new.student_name === currentUser.name) loadStudentOrderHistory();
             }).subscribe();
         }
 
         async function loadMenuStudent() {
             const { data } = await db.from('products').select('*').order('created_at', {ascending: false});
             const container = document.getElementById('menuContainer');
-            
-            if(!data || data.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10">Belum ada menu tersedia.</div>';
-                return;
-            }
-
-            container.innerHTML = data.map(p => `
+            if(!data || data.length === 0) container.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10">Kosong</div>';
+            else container.innerHTML = data.map(p => `
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 flex flex-col h-full ${p.is_sold_out ? 'opacity-60 grayscale' : ''}">
                     <div class="h-32 bg-gray-100 relative overflow-hidden">
-                        <img src="${p.image_url || 'https://placehold.co/400x300?text=Menu'}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=No+Image'">
-                        ${p.is_sold_out ? '<div class="absolute inset-0 bg-black/60 flex items-center justify-center text-white font-bold text-sm tracking-widest border-2 border-white m-4">HABIS</div>' : ''}
+                        <img src="${p.image_url || 'https://placehold.co/400x300?text=Menu'}" class="w-full h-full object-cover">
+                        ${p.is_sold_out ? '<div class="absolute inset-0 bg-black/60 flex items-center justify-center text-white font-bold text-sm border-2 border-white m-4">HABIS</div>' : ''}
                     </div>
                     <div class="p-3 flex flex-col flex-1">
                         <h4 class="font-bold text-gray-800 text-sm line-clamp-1">${p.name}</h4>
-                        <p class="text-xs text-gray-500 line-clamp-2 mb-2 flex-1">${p.description || '-'}</p>
-                        <div class="flex justify-between items-center mt-auto">
-                            <span class="text-primary font-bold text-sm">Rp ${p.price.toLocaleString()}</span>
-                            ${!p.is_sold_out ? 
-                                `<button onclick='addToCart(${JSON.stringify(p)})' class="bg-green-50 text-primary w-8 h-8 rounded-lg flex items-center justify-center font-bold hover:bg-primary hover:text-white transition shadow-sm">+</button>` 
-                                : ''}
+                        <div class="flex justify-between items-center mt-auto pt-2">
+                            <span class="text-[#059669] font-bold text-sm">Rp ${p.price.toLocaleString()}</span>
+                            ${!p.is_sold_out ? `<button onclick='addToCart(${JSON.stringify(p)})' class="bg-green-50 text-[#059669] w-8 h-8 rounded-lg flex items-center justify-center font-bold hover:bg-[#059669] hover:text-white transition shadow-sm">+</button>` : ''}
                         </div>
                     </div>
-                </div>
-            `).join('');
+                </div>`).join('');
         }
 
-        // Add to Cart Logic
         function addToCart(p) {
             const exist = cart.find(x => x.id === p.id);
-            if(exist) exist.qty++;
-            else cart.push({...p, qty: 1});
+            if(exist) exist.qty++; else cart.push({...p, qty: 1});
             updateCartUI();
-            
-            // Animasi kecil
-            const badge = document.getElementById('cartCountBadge');
-            badge.classList.add('scale-125');
-            setTimeout(()=>badge.classList.remove('scale-125'), 200);
         }
 
         function updateCartUI() {
@@ -526,391 +410,227 @@
             document.getElementById('cartTotalDisplay').innerText = `Rp ${total.toLocaleString()}`;
             document.getElementById('cartFinalTotal').innerText = `Rp ${total.toLocaleString()}`;
             document.getElementById('cartCountBadge').innerText = count;
-
             const box = document.getElementById('cartItemsContainer');
-            if(cart.length === 0) box.innerHTML = '<p class="text-center text-gray-400 py-10">Keranjang kosong. Yuk pesan!</p>';
-            else {
-                box.innerHTML = cart.map((item, i) => `
-                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
-                        <div>
-                            <p class="font-bold text-sm text-gray-800">${item.name}</p>
-                            <p class="text-xs text-gray-500">@ Rp ${item.price.toLocaleString()}</p>
-                        </div>
-                        <div class="flex items-center gap-3 bg-white px-2 py-1 rounded border shadow-sm">
-                            <button onclick="changeQty(${i}, -1)" class="text-gray-500 font-bold px-2 hover:text-red-500">-</button>
-                            <span class="text-sm font-bold w-4 text-center">${item.qty}</span>
-                            <button onclick="changeQty(${i}, 1)" class="text-primary font-bold px-2 hover:text-green-600">+</button>
-                        </div>
+            if(cart.length === 0) box.innerHTML = '<p class="text-center text-gray-400 py-10 text-xs">Keranjang kosong.</p>';
+            else box.innerHTML = cart.map((item, i) => `
+                <div class="flex justify-between items-center bg-gray-50 p-2 rounded-lg border border-gray-100">
+                    <div><p class="font-bold text-xs text-gray-800">${item.name}</p><p class="text-[10px] text-gray-500">@ Rp ${item.price.toLocaleString()}</p></div>
+                    <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border shadow-sm">
+                        <button onclick="changeQty(${i}, -1)" class="text-gray-500 font-bold px-1 text-xs">-</button><span class="text-xs font-bold w-4 text-center">${item.qty}</span><button onclick="changeQty(${i}, 1)" class="text-[#059669] font-bold px-1 text-xs">+</button>
                     </div>
-                `).join('');
-            }
+                </div>`).join('');
         }
 
         function changeQty(i, d) {
-            cart[i].qty += d;
-            if(cart[i].qty <= 0) cart.splice(i, 1);
-            updateCartUI();
+            cart[i].qty += d; if(cart[i].qty <= 0) cart.splice(i, 1); updateCartUI();
         }
 
         async function toggleCart() {
             const m = document.getElementById('cartModal');
             m.classList.toggle('hidden');
-            
-            // Load payment methods saat buka cart
             if(!m.classList.contains('hidden')) {
                 const { data } = await db.from('payment_methods').select('*').eq('is_active', true);
                 const list = document.getElementById('paymentMethodsList');
-                if(data && data.length > 0) {
-                    list.innerHTML = data.map(m => `
-                        <div class="flex-shrink-0 w-20 border rounded p-1 bg-white text-center cursor-pointer hover:border-blue-500 transition" onclick="viewImage('${m.qris_image_url}')">
-                            ${m.qris_image_url ? `<img src="${m.qris_image_url}" class="w-full h-12 object-contain mb-1">` : '<div class="h-12 bg-gray-100 text-[10px] flex items-center justify-center">Bank</div>'}
-                            <p class="text-[9px] font-bold truncate">${m.type}</p>
-                        </div>
-                    `).join('');
-                } else {
-                    list.innerHTML = '<span class="text-gray-400 italic">Bayar tunai di kasir</span>';
-                }
+                if(data && data.length > 0) list.innerHTML = data.map(m => `
+                    <div class="flex-shrink-0 w-20 border rounded p-1 bg-white text-center cursor-pointer hover:border-blue-500 transition" onclick="viewImage('${m.qris_image_url}')">
+                        ${m.qris_image_url ? `<img src="${m.qris_image_url}" class="w-full h-12 object-contain mb-1">` : '<div class="h-12 bg-gray-100 text-[10px] flex items-center justify-center">Bank</div>'}
+                        <p class="text-[9px] font-bold truncate">${m.type}</p>
+                    </div>`).join('');
+                else list.innerHTML = '<span class="text-gray-400 italic text-xs">Bayar tunai</span>';
             }
         }
 
         async function submitOrder() {
             if(cart.length === 0) return;
-            const btn = document.getElementById('btnOrder');
-            const originalText = btn.innerText;
-            btn.innerText = 'Mengirim...'; btn.disabled = true;
+            const pickup = document.getElementById('pickupTime').value;
+            const now = new Date();
+            const limit = new Date(); limit.setHours(7,20,0);
+            
+            if(now > limit) {
+                if(!confirm("Sudah lewat jam 07:20 WIB. Pesanan ini akan diproses untuk BESOK. Lanjutkan?")) return;
+            }
 
+            const btn = document.getElementById('btnOrder');
+            btn.innerText = 'Mengirim...'; btn.disabled = true;
             const total = cart.reduce((a,b) => a + (b.price * b.qty), 0);
             
-            const { error } = await db.from('orders').insert([{
-                student_name: currentUser.name,
-                items: cart,
-                total: total,
-                status: 'pending',
-                payment_status: 'unpaid'
+            const { error } = await db.from('orders').insert([{ 
+                student_name: currentUser.name, 
+                items: cart, 
+                total: total, 
+                status: 'pending', 
+                payment_status: 'unpaid',
+                pickup_time: pickup
             }]);
 
             if(!error) {
-                showToast('✅ Pesanan Terkirim! Cek tab "Pesanan Saya"', 'success');
-                cart = []; updateCartUI(); toggleCart();
-                switchStudentTab('history'); // Pindah ke tab history
-            } else {
-                showToast('Gagal: ' + error.message, 'error');
-            }
-            btn.innerText = originalText; btn.disabled = false;
+                showToast('? Terkirim!', 'success');
+                cart = []; updateCartUI(); toggleCart(); switchStudentTab('history');
+            } else showToast('Gagal: ' + error.message, 'error');
+            btn.innerText = 'Pesan Sekarang'; btn.disabled = false;
         }
 
-        // --- FITUR BARU: HISTORY & UPLOAD BUKTI ---
+        function switchStudentTab(tab) {
+            const btnMenu = document.getElementById('btnTabMenu');
+            const btnHist = document.getElementById('btnTabHistory');
+            const viewMenu = document.getElementById('viewStudentMenu');
+            const viewHist = document.getElementById('viewStudentHistory');
+            const cartBtn = document.getElementById('cartFloatBtn');
+            if(tab === 'menu') {
+                btnMenu.className = "py-2 border-b-2 border-[#059669] text-[#059669]";
+                btnHist.className = "py-2 border-b-2 border-transparent text-gray-500";
+                viewMenu.classList.remove('hidden'); viewHist.classList.add('hidden'); cartBtn.classList.remove('hidden');
+            } else {
+                btnHist.className = "py-2 border-b-2 border-[#059669] text-[#059669]";
+                btnMenu.className = "py-2 border-b-2 border-transparent text-gray-500";
+                viewHist.classList.remove('hidden'); viewMenu.classList.add('hidden'); cartBtn.classList.add('hidden');
+                loadStudentOrderHistory();
+            }
+        }
+
         async function loadStudentOrderHistory() {
             const container = document.getElementById('studentHistoryContainer');
-            container.innerHTML = '<div class="text-center py-4"><div class="loader mx-auto"></div></div>';
-
-            const { data: orders } = await db.from('orders')
-                .select('*')
-                .eq('student_name', currentUser.name)
-                .order('created_at', { ascending: false });
-
-            if(!orders || orders.length === 0) {
-                container.innerHTML = '<div class="text-center py-10 text-gray-400 border rounded-lg border-dashed">Belum ada riwayat pesanan</div>';
-                return;
-            }
-
+            container.innerHTML = '<div class="loader mx-auto"></div>';
+            const { data: orders } = await db.from('orders').select('*').eq('student_name', currentUser.name).order('created_at', { ascending: false });
+            if(!orders || orders.length === 0) { container.innerHTML = '<div class="text-center py-10 text-gray-400 border rounded-lg border-dashed">Belum ada riwayat</div>'; return; }
             container.innerHTML = orders.map(o => {
                 const itemsList = o.items.map(i => `${i.qty}x ${i.name}`).join(', ');
-                const statusColor = o.status === 'completed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700';
-                const payColor = o.payment_status === 'paid' ? 'text-green-600' : 'text-red-500';
-                
-                // Cek apakah sudah upload bukti
-                const hasProof = o.proof_of_payment_url != null;
                 const isPaid = o.payment_status === 'paid';
-
                 return `
                 <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                     <div class="flex justify-between items-start mb-2">
-                        <div>
-                            <span class="text-[10px] text-gray-500 block">${new Date(o.created_at).toLocaleString('id-ID')}</span>
-                            <span class="font-bold text-primary">Rp ${o.total.toLocaleString()}</span>
+                        <div><span class="text-[10px] text-gray-500 block">${new Date(o.created_at).toLocaleString('id-ID')}</span><span class="font-bold text-[#059669]">Rp ${o.total.toLocaleString()}</span></div>
+                        <div class="text-right">
+                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${o.status === 'completed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}">${o.status === 'completed' ? 'Selesai' : 'Diproses'}</span>
+                            <div class="text-[10px] font-bold text-gray-500 mt-1">?? ${o.pickup_time || '-'}</div>
                         </div>
-                        <span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${statusColor}">${o.status === 'completed' ? 'Selesai' : 'Diproses'}</span>
                     </div>
                     <p class="text-sm text-gray-700 mb-3 border-b pb-2 border-dashed">${itemsList}</p>
-                    
                     <div class="flex items-center justify-between gap-2">
-                        <span class="text-xs font-bold ${payColor}">Status: ${isPaid ? 'LUNAS ✅' : 'BELUM BAYAR'}</span>
-                        
-                        ${!isPaid ? `
-                            <div class="flex items-center gap-2">
-                                ${hasProof ? `<button onclick="viewImage('${o.proof_of_payment_url}')" class="text-xs text-blue-600 underline">Lihat Bukti</button>` : ''}
-                                <label class="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-bold cursor-pointer hover:bg-blue-700 transition">
-                                    ${hasProof ? 'Ganti Bukti' : 'Upload Bukti'}
-                                    <input type="file" class="hidden" accept="image/*" onchange="uploadProof(this, '${o.id}')">
-                                </label>
-                            </div>
-                        ` : ''}
+                        <span class="text-xs font-bold ${isPaid ? 'text-green-600' : 'text-red-500'}">${isPaid ? 'LUNAS ?' : 'BELUM BAYAR'}</span>
+                        ${!isPaid ? `<label class="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-bold cursor-pointer hover:bg-blue-700 transition">${o.proof_of_payment_url ? 'Ganti' : 'Upload Bukti'}<input type="file" class="hidden" accept="image/*" onchange="uploadProof(this, '${o.id}')"></label>` : ''}
                     </div>
                 </div>`;
             }).join('');
         }
 
         async function uploadProof(input, orderId) {
-            const file = input.files[0];
-            if(!file) return;
-
-            // Feedback visual
-            const label = input.parentElement;
-            const originalText = label.innerText;
-            label.innerText = "Mengupload...";
-            
+            const file = input.files[0]; if(!file) return;
             try {
                 const url = await uploadImage(file, 'proofs');
-                // Update tabel order
                 await db.from('orders').update({ proof_of_payment_url: url }).eq('id', orderId);
-                showToast('Bukti pembayaran berhasil diupload!', 'success');
-                loadStudentOrderHistory(); // Refresh
-            } catch(e) {
-                showToast(e.message, 'error');
-                label.innerText = "Coba Lagi";
-            }
+                showToast('Bukti diupload!', 'success'); loadStudentOrderHistory();
+            } catch(e) { alert(e.message); }
         }
 
-
-        // --- LOGIKA PENJUAL ---
         async function showSellerDashboard() {
             document.getElementById('sellerDashboard').classList.remove('hidden');
-            loadSellerOrders();
-            loadSellerMenu();
-
-            // Realtime
+            loadSellerOrders(); loadSellerMenu(); requestNotificationPermission();
             db.channel('public:orders').on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, payload => {
                 loadSellerOrders();
-                if(payload.eventType === 'INSERT') playSound();
+                if(payload.eventType === 'INSERT') sendPushNotification("Pesanan Baru", `Total: Rp ${payload.new.total}`);
             }).subscribe();
         }
 
         async function loadSellerMenu() {
             const { data } = await db.from('products').select('*').order('created_at', {ascending: false});
             const list = document.getElementById('sellerProductList');
-            if(data) {
-                list.innerHTML = data.map(p => `
-                    <div class="flex justify-between items-center border-b border-gray-100 py-3 last:border-0">
-                        <div class="flex items-center gap-3">
-                            <img src="${p.image_url || 'https://placehold.co/50'}" class="w-10 h-10 rounded-lg object-cover bg-gray-200">
-                            <div>
-                                <p class="text-sm font-bold ${p.is_sold_out ? 'text-red-500 line-through' : 'text-gray-800'}">${p.name}</p>
-                                <p class="text-xs text-gray-500">Rp ${p.price.toLocaleString()}</p>
-                            </div>
-                        </div>
-                        <button onclick='openProductModal(${JSON.stringify(p)})' class="bg-gray-100 text-xs px-3 py-1.5 rounded hover:bg-gray-200 font-bold text-gray-600">Edit</button>
+            if(data) list.innerHTML = data.map(p => `
+                <div class="flex justify-between items-center border-b border-gray-100 py-3 last:border-0">
+                    <div class="flex items-center gap-3">
+                        <img src="${p.image_url || 'https://placehold.co/50'}" class="w-10 h-10 rounded-lg object-cover bg-gray-200">
+                        <div><p class="text-sm font-bold ${p.is_sold_out ? 'text-red-500 line-through' : 'text-gray-800'}">${p.name}</p><p class="text-xs text-gray-500">Rp ${p.price.toLocaleString()}</p></div>
                     </div>
-                `).join('');
-            }
+                    <button onclick='openProductModal(${JSON.stringify(p)})' class="bg-gray-100 text-xs px-3 py-1.5 rounded hover:bg-gray-200 font-bold text-gray-600">Edit</button>
+                </div>`).join('');
         }
 
         async function loadSellerOrders() {
             const container = document.getElementById('ordersContainer');
-            // Ambil pesanan hari ini saja (opsional, disini ambil 30 terakhir)
             const { data: orders } = await db.from('orders').select('*').order('created_at', { ascending: false }).limit(30);
+            if(!orders || orders.length === 0) { container.innerHTML = '<div class="text-center py-10 text-gray-400">Belum ada pesanan</div>'; document.getElementById('orderCountBadge').classList.add('hidden'); return; }
             
-            if(!orders || orders.length === 0) {
-                container.innerHTML = '<div class="text-center py-10 text-gray-400">Belum ada pesanan masuk</div>'; 
-                document.getElementById('orderCountBadge').classList.add('hidden');
-                return;
-            }
-
-            // Hitung Revenue Lunas
             const revenue = orders.filter(o => o.payment_status === 'paid').reduce((a,b) => a + b.total, 0);
             document.getElementById('todayRevenue').innerText = `Rp ${revenue.toLocaleString()}`;
             
-            // Badge Count (Yang belum selesai)
             const activeCount = orders.filter(o => o.status !== 'completed').length;
-            const badge = document.getElementById('orderCountBadge');
-            badge.innerText = activeCount;
-            badge.classList.remove('hidden');
+            const badge = document.getElementById('orderCountBadge'); badge.innerText = activeCount; badge.classList.remove('hidden');
 
             container.innerHTML = orders.map(o => {
                 const itemsHTML = o.items.map(i => `<span class="bg-gray-100 px-2 py-1 rounded text-xs text-gray-700"><b>${i.qty}</b> ${i.name}</span>`).join(' ');
                 const isPaid = o.payment_status === 'paid';
-                const isDone = o.status === 'completed';
-                const hasProof = o.proof_of_payment_url != null;
-
                 return `
-                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 ${isDone ? 'border-gray-200 opacity-60' : 'border-primary'}">
+                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 ${o.status === 'completed' ? 'border-gray-200 opacity-60' : 'border-[#059669]'}">
                     <div class="flex justify-between mb-2">
                         <h4 class="font-bold text-gray-800">${o.student_name}</h4>
-                        <span class="font-bold text-primary">Rp ${o.total.toLocaleString()}</span>
+                        <div class="text-right"><span class="font-bold text-[#059669]">Rp ${o.total.toLocaleString()}</span><div class="text-[10px] font-bold text-gray-500">?? ${o.pickup_time || '-'}</div></div>
                     </div>
-                    
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        ${itemsHTML}
-                    </div>
-
+                    <div class="flex flex-wrap gap-2 mb-3">${itemsHTML}</div>
                     <div class="flex gap-2 items-center pt-2 border-t border-gray-100">
-                        ${hasProof ? 
-                            `<button onclick="viewImage('${o.proof_of_payment_url}')" class="text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded font-bold border border-blue-100 hover:bg-blue-100">👁 Bukti Bayar</button>` 
-                            : '<span class="text-[10px] text-gray-400 italic px-2">Tanpa bukti</span>'}
-
+                        ${o.proof_of_payment_url ? `<button onclick="viewImage('${o.proof_of_payment_url}')" class="text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded font-bold border border-blue-100">?? Bukti</button>` : '<span class="text-[10px] text-gray-400 italic px-2">Tanpa bukti</span>'}
                         <div class="flex-1"></div>
-
-                        ${!isPaid ? 
-                            `<button onclick="updateOrder('${o.id}', 'payment_status', 'paid')" class="bg-green-100 text-green-700 px-3 py-1.5 rounded text-xs font-bold hover:bg-green-200">💰 Terima Uang</button>` 
-                            : '<span class="text-green-600 text-xs font-bold px-2">✅ Lunas</span>'}
-                        
-                        ${!isDone ? 
-                            `<button onclick="updateOrder('${o.id}', 'status', 'completed')" class="bg-gray-800 text-white px-3 py-1.5 rounded text-xs font-bold hover:bg-black">Selesai</button>` 
-                            : ''}
+                        ${!isPaid ? `<button onclick="updateOrder('${o.id}', 'payment_status', 'paid')" class="bg-green-100 text-green-700 px-3 py-1.5 rounded text-xs font-bold">?? Terima</button>` : '<span class="text-green-600 text-xs font-bold px-2">? Lunas</span>'}
+                        ${o.status !== 'completed' ? `<button onclick="updateOrder('${o.id}', 'status', 'completed')" class="bg-gray-800 text-white px-3 py-1.5 rounded text-xs font-bold">Selesai</button>` : ''}
                     </div>
                 </div>`;
             }).join('');
         }
 
-        // --- FITUR REKAP DAPUR ---
         async function showSummaryModal() {
-            const { data: orders } = await db.from('orders').select('*')
-                .neq('status', 'completed'); // Hanya ambil yang belum selesai
-
+            const { data: orders } = await db.from('orders').select('*').eq('payment_status', 'paid').neq('status', 'completed');
             const summary = {};
             
             orders.forEach(o => {
                 o.items.forEach(i => {
-                    if(summary[i.name]) summary[i.name] += i.qty;
-                    else summary[i.name] = i.qty;
+                    if(!summary[i.name]) summary[i.name] = [];
+                    summary[i.name].push(`${o.student_name} (${o.pickup_time || '-'})`);
                 });
             });
 
             const content = document.getElementById('summaryContent');
-            if(Object.keys(summary).length === 0) {
-                content.innerHTML = '<p class="text-center text-gray-400">Tidak ada pesanan aktif.</p>';
-            } else {
-                let html = '';
-                for (const [name, qty] of Object.entries(summary)) {
-                    html += `
-                    <div class="flex justify-between border-b border-dashed border-gray-200 py-2">
-                        <span class="font-bold text-gray-700">${name}</span>
-                        <span class="font-bold text-xl text-primary">${qty}</span>
-                    </div>`;
+            if(Object.keys(summary).length === 0) content.innerHTML = '<p class="text-center text-gray-400">Tidak ada pesanan LUNAS yang aktif.</p>';
+            else {
+                let html = '<table class="w-full text-left border-collapse" id="summaryTable"><thead><tr class="bg-gray-100 border-b"><th class="p-2">Menu</th><th class="p-2">Jml</th><th class="p-2">Pemesan (Waktu)</th></tr></thead><tbody>';
+                for (const [name, list] of Object.entries(summary)) {
+                    html += `<tr class="border-b"><td class="p-2 font-bold align-top">${name}</td><td class="p-2 font-bold text-center align-top">${list.length}</td><td class="p-2 text-xs align-top"><ol class="list-decimal pl-4 space-y-1">${list.map(l => `<li>${l}</li>`).join('')}</ol></td></tr>`;
                 }
+                html += '</tbody></table>';
                 content.innerHTML = html;
             }
-            
             document.getElementById('summaryModal').classList.remove('hidden');
             document.getElementById('summaryModal').classList.add('flex');
         }
-        
+
         function copySummary() {
-            const text = document.getElementById('summaryContent').innerText;
-            navigator.clipboard.writeText("REKAP PESANAN:\n" + text);
-            showToast('Disalin ke clipboard!', 'info');
+            const rows = document.querySelectorAll('#summaryTable tbody tr');
+            let text = "REKAP DAPUR (LUNAS):\n";
+            rows.forEach(r => {
+                const cols = r.querySelectorAll('td');
+                const menu = cols[0].innerText;
+                const qty = cols[1].innerText;
+                const details = cols[2].innerText.replace(/\n/g, ', ');
+                text += `\n[${qty}] ${menu}\nDetails: ${details}\n`;
+            });
+            navigator.clipboard.writeText(text);
+            showToast('Teks disalin!', 'success');
         }
 
-        async function updateOrder(id, key, val) {
-            await db.from('orders').update({ [key]: val }).eq('id', id);
-            loadSellerOrders(); // Refresh manual agar cepat
+        function downloadExcel() {
+            const html = document.getElementById('summaryTable').outerHTML;
+            const blob = new Blob([`\uFEFF${html}`], { type: 'application/vnd.ms-excel' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = `Rekap_Dapur_${new Date().toISOString().slice(0,10)}.xls`;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
         }
 
-        // --- CRUD HELPER ---
-        function openProductModal(p = null) {
-            document.getElementById('productModal').classList.remove('hidden');
-            document.getElementById('productModal').classList.add('flex');
-            
-            if(p) {
-                document.getElementById('modalTitle').innerText = 'Edit Menu';
-                document.getElementById('editProductId').value = p.id;
-                document.getElementById('prodName').value = p.name;
-                document.getElementById('prodPrice').value = p.price;
-                document.getElementById('prodDesc').value = p.description || '';
-                document.getElementById('prodSoldOut').checked = p.is_sold_out;
-            } else {
-                document.getElementById('modalTitle').innerText = 'Tambah Menu Baru';
-                document.getElementById('editProductId').value = '';
-                document.querySelector('form').reset();
-            }
-        }
-
-        async function handleProductSave(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btnSaveProd');
-            btn.innerText = 'Menyimpan...'; btn.disabled = true;
-
-            const id = document.getElementById('editProductId').value;
-            const name = document.getElementById('prodName').value;
-            const price = document.getElementById('prodPrice').value;
-            const desc = document.getElementById('prodDesc').value;
-            const soldOut = document.getElementById('prodSoldOut').checked;
-            const file = document.getElementById('prodImage').files[0];
-
-            try {
-                let imgUrl = null;
-                if(file) imgUrl = await uploadImage(file);
-
-                const payload = { name, price, description: desc, is_sold_out: soldOut };
-                if(imgUrl) payload.image_url = imgUrl;
-
-                if(id) {
-                    await db.from('products').update(payload).eq('id', id);
-                } else {
-                    await db.from('products').insert([payload]);
-                }
-                
-                document.getElementById('productModal').classList.add('hidden');
-                document.getElementById('productModal').classList.remove('flex');
-                loadSellerMenu();
-                showToast('Menu berhasil disimpan', 'success');
-            } catch(err) {
-                alert('Gagal simpan: ' + err.message);
-            }
-            btn.innerText = 'Simpan'; btn.disabled = false;
-        }
-
-        function showPaymentSettings() {
-            document.getElementById('paymentModal').classList.remove('hidden');
-            document.getElementById('paymentModal').classList.add('flex');
-        }
-
-        async function handlePaymentSave(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btnSavePay');
-            btn.innerText = 'Upload...'; btn.disabled = true;
-            
-            const type = document.getElementById('payType').value;
-            const num = document.getElementById('payNumber').value;
-            const file = document.getElementById('payImage').files[0];
-
-            try {
-                let qrisUrl = null;
-                if(file) qrisUrl = await uploadImage(file, 'qris'); // Folder qris
-
-                await db.from('payment_methods').insert([{
-                    type, account_number: num, qris_image_url: qrisUrl
-                }]);
-                
-                document.getElementById('paymentModal').classList.add('hidden');
-                showToast('Metode pembayaran ditambahkan', 'success');
-            } catch(err) {
-                alert('Gagal: ' + err.message);
-            }
-            btn.innerText = 'Simpan'; btn.disabled = false;
-        }
-
-        // --- UTILS ---
-        function showToast(msg, type='info') {
-            const area = document.getElementById('notificationArea');
-            const el = document.createElement('div');
-            const color = type==='success' ? 'bg-primary' : (type==='error' ? 'bg-red-500' : 'bg-gray-800');
-            el.className = `px-4 py-3 rounded-lg shadow-xl text-white text-sm font-bold transform transition-all translate-x-full ${color} flex items-center gap-2`;
-            el.innerHTML = `<span>${msg}</span>`;
-            area.appendChild(el);
-            setTimeout(()=>el.classList.remove('translate-x-full'), 10);
-            setTimeout(()=>{ el.classList.add('opacity-0'); setTimeout(()=>el.remove(),300)}, 3000);
-        }
-
-        function playSound() {
-            // Bunyi 'Ding' simple
-            const ctx = new (window.AudioContext||window.webkitAudioContext)();
-            const o = ctx.createOscillator(); const g = ctx.createGain();
-            o.connect(g); g.connect(ctx.destination);
-            o.type='sine'; o.frequency.value=800; 
-            g.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.5);
-            o.start(); setTimeout(()=>o.stop(),500);
-        }
+        async function updateOrder(id, key, val) { await db.from('orders').update({ [key]: val }).eq('id', id); loadSellerOrders(); }
+        function openProductModal(p=null) { document.getElementById('productModal').classList.remove('hidden'); document.getElementById('productModal').classList.add('flex'); if(p) { document.getElementById('editProductId').value = p.id; document.getElementById('prodName').value = p.name; document.getElementById('prodPrice').value = p.price; document.getElementById('prodDesc').value = p.description || ''; document.getElementById('prodSoldOut').checked = p.is_sold_out; } else { document.getElementById('editProductId').value = ''; document.querySelector('#productModal form').reset(); } }
+        async function handleProductSave(e) { e.preventDefault(); const btn = document.getElementById('btnSaveProd'); btn.innerText = '...'; btn.disabled = true; const id = document.getElementById('editProductId').value; const name = document.getElementById('prodName').value; const price = document.getElementById('prodPrice').value; const desc = document.getElementById('prodDesc').value; const soldOut = document.getElementById('prodSoldOut').checked; const file = document.getElementById('prodImage').files[0]; try { let imgUrl = null; if(file) imgUrl = await uploadImage(file); const pl = { name, price, description: desc, is_sold_out: soldOut }; if(imgUrl) pl.image_url = imgUrl; if(id) await db.from('products').update(pl).eq('id', id); else await db.from('products').insert([pl]); document.getElementById('productModal').classList.add('hidden'); document.getElementById('productModal').classList.remove('flex'); loadSellerMenu(); showToast('Tersimpan!', 'success'); } catch(err) { alert(err.message); } btn.innerText = 'Simpan'; btn.disabled = false; }
+        async function showPaymentSettings() { document.getElementById('paymentModal').classList.remove('hidden'); document.getElementById('paymentModal').classList.add('flex'); const { data } = await db.from('payment_methods').select('*').eq('is_active', true); const list = document.getElementById('existingPaymentList'); if(!data || data.length === 0) list.innerHTML = '<p class="text-gray-400 text-xs">Kosong</p>'; else list.innerHTML = data.map(m => `<div class="flex justify-between items-center bg-gray-50 p-2 rounded border"><div class="flex items-center gap-2">${m.qris_image_url ? `<img src="${m.qris_image_url}" class="w-8 h-8 object-contain">` : '??'}<div><p class="text-xs font-bold">${m.type}</p></div></div><button onclick="deletePayment('${m.id}')" class="text-red-500 hover:bg-red-50 p-1">???</button></div>`).join(''); }
+        async function deletePayment(id) { if(confirm("Hapus?")) { await db.from('payment_methods').update({ is_active: false }).eq('id', id); showPaymentSettings(); } }
+        async function handlePaymentSave(e) { e.preventDefault(); const file = document.getElementById('payImage').files[0]; let url = null; if(file) url = await uploadImage(file, 'qris'); await db.from('payment_methods').insert([{ type: document.getElementById('payType').value, account_number: document.getElementById('payNumber').value, qris_image_url: url }]); showPaymentSettings(); document.querySelector('#paymentModal form').reset(); }
+        function showToast(msg, type='info') { const area = document.getElementById('notificationArea'); const el = document.createElement('div'); const color = type==='success' ? 'bg-[#059669]' : (type==='error' ? 'bg-red-500' : 'bg-gray-800'); el.className = `px-4 py-3 rounded-lg shadow-xl text-white text-sm font-bold transform transition-all translate-x-full ${color}`; el.innerText = msg; area.appendChild(el); setTimeout(()=>el.classList.remove('translate-x-full'), 10); setTimeout(()=>{ el.classList.add('opacity-0'); setTimeout(()=>el.remove(),300)}, 3000); }
 
         init();
     </script>
