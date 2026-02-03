@@ -72,13 +72,7 @@
         </header>
 
         <main id="viewStudentMenu" class="max-w-4xl mx-auto px-4 mt-4 fade-in">
-            <div id="timeWarning" class="hidden bg-orange-100 border border-orange-200 rounded-xl p-3 flex items-start gap-3 mb-4">
-                <div class="text-xl">?</div>
-                <div>
-                    <h3 class="font-bold text-orange-800 text-sm">Pemesanan Hari Ini Ditutup</h3>
-                    <p class="text-xs text-orange-700 mt-1">Sekarang sudah lewat jam 07:20 WIB. Pesanan Anda akan dicatat untuk <b>BESOK</b>.</p>
-                </div>
-            </div>
+           
             <div id="menuContainer" class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="col-span-full text-center py-10 text-gray-400">Sedang memuat menu...</div>
             </div>
@@ -367,10 +361,7 @@
             document.getElementById('studentDashboard').classList.remove('hidden');
             document.getElementById('studentWelcomeName').innerText = currentUser.name.split(' ')[0];
             
-            const now = new Date();
-            const limit = new Date(); limit.setHours(7,20,0);
-            if(now > limit) document.getElementById('timeWarning').classList.remove('hidden');
-
+            
             loadMenuStudent();
             db.channel('public:orders').on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, payload => {
                 if(payload.new.student_name === currentUser.name && payload.new.status === 'completed') showToast('? Pesananmu selesai!', 'success');
@@ -442,14 +433,7 @@
 
         async function submitOrder() {
             if(cart.length === 0) return;
-            const pickup = document.getElementById('pickupTime').value;
-            const now = new Date();
-            const limit = new Date(); limit.setHours(7,20,0);
-            
-            if(now > limit) {
-                if(!confirm("Sudah lewat jam 07:20 WIB. Pesanan ini akan diproses untuk BESOK. Lanjutkan?")) return;
-            }
-
+           
             const btn = document.getElementById('btnOrder');
             btn.innerText = 'Mengirim...'; btn.disabled = true;
             const total = cart.reduce((a,b) => a + (b.price * b.qty), 0);
@@ -636,4 +620,5 @@
     </script>
 </body>
 </html>
+
 
