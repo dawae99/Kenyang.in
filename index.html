@@ -432,20 +432,47 @@
         }
 
         async function submitOrder() {
+        
             if(cart.length === 0) return;
+
            
+            const pickup = document.getElementById('pickupTime').value;
+            
+    
             const btn = document.getElementById('btnOrder');
-            btn.innerText = 'Mengirim...'; btn.disabled = true;
+            const originalText = btn.innerText;
+            btn.innerText = 'Mengirim...'; 
+            btn.disabled = true;
+
+         
             const total = cart.reduce((a,b) => a + (b.price * b.qty), 0);
             
+  
             const { error } = await db.from('orders').insert([{ 
                 student_name: currentUser.name, 
                 items: cart, 
                 total: total, 
                 status: 'pending', 
                 payment_status: 'unpaid',
-                pickup_time: pickup
+                pickup_time: pickup 
             }]);
+
+          
+            if(!error) {
+                showToast('✅ Pesanan Terkirim!', 'success');
+                cart = []; 
+                updateCartUI(); 
+                toggleCart(); 
+                switchStudentTab('history');
+            } else {
+                showToast('Gagal: ' + error.message, 'error');
+                console.error(error);
+            }
+            
+           
+            btn.innerText = originalText; 
+            btn.disabled = false;
+        }]);
 
             if(!error) {
                 showToast('? Terkirim!', 'success');
@@ -620,5 +647,6 @@
     </script>
 </body>
 </html>
+
 
 
