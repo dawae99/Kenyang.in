@@ -19,7 +19,7 @@
             <div class="h-2 w-full bg-[#059669] absolute top-0 left-0"></div>
             <div class="flex flex-col items-center mb-6">
                 <div class="w-24 h-24 rounded-full border-4 border-green-100 shadow-lg overflow-hidden mb-3 bg-white flex items-center justify-center group">
-                    <img src="./logokenyang.png" onerror="this.src='https://ui-avatars.com/api/?name=Kenyang+In&background=059669&color=fff&size=128'" class="w-full h-full object-cover transition transform group-hover:scale-110">
+                    <img src="./logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Kenyang+In&background=059669&color=fff&size=128'" class="w-full h-full object-cover transition transform group-hover:scale-110">
                 </div>
                 <h1 class="text-3xl font-bold text-gray-800">Kenyang.in</h1>
             </div>
@@ -57,7 +57,7 @@
             <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full border border-gray-200 overflow-hidden">
-                        <img src="./logokenyang.png" onerror="this.src='https://ui-avatars.com/api/?name=User&background=random'" class="w-full h-full object-cover">
+                        <img src="./logo.png" onerror="this.src='https://ui-avatars.com/api/?name=User&background=random'" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <h1 class="font-bold text-gray-800 leading-none">Hai, <span id="studentWelcomeName">Siswa</span>!</h1>
@@ -72,7 +72,6 @@
         </header>
 
         <main id="viewStudentMenu" class="max-w-4xl mx-auto px-4 mt-4 fade-in">
-           
             <div id="menuContainer" class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="col-span-full text-center py-10 text-gray-400">Sedang memuat menu...</div>
             </div>
@@ -80,7 +79,7 @@
 
         <main id="viewStudentHistory" class="max-w-4xl mx-auto px-4 mt-4 hidden fade-in">
             <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3 mb-6">
-                <div class="text-xl">??</div>
+                <div class="text-xl">💡</div>
                 <div>
                     <h3 class="font-bold text-blue-800 text-xs">Info Pembayaran</h3>
                     <p class="text-[10px] text-blue-600 mt-1">Upload bukti transfer/QRIS agar pesanan diproses.</p>
@@ -142,8 +141,8 @@
                     <h1 class="font-bold text-gray-800 hidden sm:block">Dapur Kantin</h1>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="showSummaryModal()" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-indigo-700 shadow">?? Rekap</button>
-                    <button onclick="showPaymentSettings()" class="bg-amber-100 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-amber-200 border border-amber-200">?? Bayar</button>
+                    <button onclick="showSummaryModal()" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-indigo-700 shadow">📋 Rekap</button>
+                    <button onclick="showPaymentSettings()" class="bg-amber-100 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-amber-200 border border-amber-200">⚙️ Bayar</button>
                     <button onclick="openProductModal()" class="bg-[#059669] text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-[#047857] shadow">+ Menu</button>
                     <button onclick="logout()" class="bg-white text-red-500 px-3 py-1.5 rounded-lg text-xs font-bold border border-red-100 hover:bg-red-50">Keluar</button>
                 </div>
@@ -154,10 +153,10 @@
             <div class="lg:col-span-2 space-y-4">
                 <div class="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-gray-200">
                     <h2 class="font-bold text-gray-800 flex items-center gap-2">
-                        ?? Pesanan Masuk
+                        📥 Pesanan Masuk
                         <span id="orderCountBadge" class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full hidden">0</span>
                     </h2>
-                    <button onclick="requestNotificationPermission()" class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded border border-blue-100 hover:bg-blue-100">?? Aktifkan Notifikasi</button>
+                    <button onclick="requestNotificationPermission()" class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded border border-blue-100 hover:bg-blue-100">🔔 Aktifkan Notifikasi</button>
                 </div>
                 <div id="ordersContainer" class="space-y-3 pb-20"></div>
             </div>
@@ -227,7 +226,7 @@
     <div id="summaryModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[80] p-4 backdrop-blur-sm">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 fade-in h-[85vh] flex flex-col">
             <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h2 class="text-xl font-bold text-gray-800">?? Rekap Dapur (Lunas)</h2>
+                <h2 class="text-xl font-bold text-gray-800">📋 Rekap Dapur (Lunas)</h2>
                 <button onclick="document.getElementById('summaryModal').classList.add('hidden')" class="text-gray-400 hover:text-red-500 text-xl font-bold">&times;</button>
             </div>
             <div class="bg-green-50 p-3 rounded-lg text-xs text-green-800 mb-3">Hanya menampilkan pesanan <b>LUNAS</b> yang belum selesai.</div>
@@ -245,6 +244,7 @@
     </div>
 
     <script>
+        
         const SUPABASE_URL = 'https://xckedpfcmwjotvhchomy.supabase.co'; 
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhja2VkcGZjbXdqb3R2aGNob215Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5Nzk1NDcsImV4cCI6MjA4NDU1NTU0N30.twPD_qWyFLtvIffGmNJXzOLnEQ6YOpJ-NicRk95glTw'; 
 
@@ -360,11 +360,9 @@
         async function showStudentDashboard() {
             document.getElementById('studentDashboard').classList.remove('hidden');
             document.getElementById('studentWelcomeName').innerText = currentUser.name.split(' ')[0];
-            
-            
             loadMenuStudent();
             db.channel('public:orders').on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, payload => {
-                if(payload.new.student_name === currentUser.name && payload.new.status === 'completed') showToast('? Pesananmu selesai!', 'success');
+                if(payload.new.student_name === currentUser.name && payload.new.status === 'completed') showToast('✅ Pesananmu selesai!', 'success');
                 if(payload.new.student_name === currentUser.name) loadStudentOrderHistory();
             }).subscribe();
         }
@@ -432,22 +430,12 @@
         }
 
         async function submitOrder() {
-        
             if(cart.length === 0) return;
-
-           
             const pickup = document.getElementById('pickupTime').value;
-            
-    
             const btn = document.getElementById('btnOrder');
-            const originalText = btn.innerText;
-            btn.innerText = 'Mengirim...'; 
-            btn.disabled = true;
-
-         
+            btn.innerText = 'Mengirim...'; btn.disabled = true;
             const total = cart.reduce((a,b) => a + (b.price * b.qty), 0);
             
-  
             const { error } = await db.from('orders').insert([{ 
                 student_name: currentUser.name, 
                 items: cart, 
@@ -457,25 +445,8 @@
                 pickup_time: pickup 
             }]);
 
-          
             if(!error) {
-                showToast('✅ Pesanan Terkirim!', 'success');
-                cart = []; 
-                updateCartUI(); 
-                toggleCart(); 
-                switchStudentTab('history');
-            } else {
-                showToast('Gagal: ' + error.message, 'error');
-                console.error(error);
-            }
-            
-           
-            btn.innerText = originalText; 
-            btn.disabled = false;
-        }]);
-
-            if(!error) {
-                showToast('? Terkirim!', 'success');
+                showToast('✅ Terkirim!', 'success');
                 cart = []; updateCartUI(); toggleCart(); switchStudentTab('history');
             } else showToast('Gagal: ' + error.message, 'error');
             btn.innerText = 'Pesan Sekarang'; btn.disabled = false;
@@ -513,12 +484,12 @@
                         <div><span class="text-[10px] text-gray-500 block">${new Date(o.created_at).toLocaleString('id-ID')}</span><span class="font-bold text-[#059669]">Rp ${o.total.toLocaleString()}</span></div>
                         <div class="text-right">
                             <span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${o.status === 'completed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}">${o.status === 'completed' ? 'Selesai' : 'Diproses'}</span>
-                            <div class="text-[10px] font-bold text-gray-500 mt-1">?? ${o.pickup_time || '-'}</div>
+                            <div class="text-[10px] font-bold text-gray-500 mt-1">🕒 ${o.pickup_time || '-'}</div>
                         </div>
                     </div>
                     <p class="text-sm text-gray-700 mb-3 border-b pb-2 border-dashed">${itemsList}</p>
                     <div class="flex items-center justify-between gap-2">
-                        <span class="text-xs font-bold ${isPaid ? 'text-green-600' : 'text-red-500'}">${isPaid ? 'LUNAS ?' : 'BELUM BAYAR'}</span>
+                        <span class="text-xs font-bold ${isPaid ? 'text-green-600' : 'text-red-500'}">${isPaid ? 'LUNAS ✅' : 'BELUM BAYAR'}</span>
                         ${!isPaid ? `<label class="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-bold cursor-pointer hover:bg-blue-700 transition">${o.proof_of_payment_url ? 'Ganti' : 'Upload Bukti'}<input type="file" class="hidden" accept="image/*" onchange="uploadProof(this, '${o.id}')"></label>` : ''}
                     </div>
                 </div>`;
@@ -574,13 +545,13 @@
                 <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 ${o.status === 'completed' ? 'border-gray-200 opacity-60' : 'border-[#059669]'}">
                     <div class="flex justify-between mb-2">
                         <h4 class="font-bold text-gray-800">${o.student_name}</h4>
-                        <div class="text-right"><span class="font-bold text-[#059669]">Rp ${o.total.toLocaleString()}</span><div class="text-[10px] font-bold text-gray-500">?? ${o.pickup_time || '-'}</div></div>
+                        <div class="text-right"><span class="font-bold text-[#059669]">Rp ${o.total.toLocaleString()}</span><div class="text-[10px] font-bold text-gray-500">🕒 ${o.pickup_time || '-'}</div></div>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-3">${itemsHTML}</div>
                     <div class="flex gap-2 items-center pt-2 border-t border-gray-100">
-                        ${o.proof_of_payment_url ? `<button onclick="viewImage('${o.proof_of_payment_url}')" class="text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded font-bold border border-blue-100">?? Bukti</button>` : '<span class="text-[10px] text-gray-400 italic px-2">Tanpa bukti</span>'}
+                        ${o.proof_of_payment_url ? `<button onclick="viewImage('${o.proof_of_payment_url}')" class="text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded font-bold border border-blue-100">👁 Bukti</button>` : '<span class="text-[10px] text-gray-400 italic px-2">Tanpa bukti</span>'}
                         <div class="flex-1"></div>
-                        ${!isPaid ? `<button onclick="updateOrder('${o.id}', 'payment_status', 'paid')" class="bg-green-100 text-green-700 px-3 py-1.5 rounded text-xs font-bold">?? Terima</button>` : '<span class="text-green-600 text-xs font-bold px-2">? Lunas</span>'}
+                        ${!isPaid ? `<button onclick="updateOrder('${o.id}', 'payment_status', 'paid')" class="bg-green-100 text-green-700 px-3 py-1.5 rounded text-xs font-bold">💰 Terima</button>` : '<span class="text-green-600 text-xs font-bold px-2">✅ Lunas</span>'}
                         ${o.status !== 'completed' ? `<button onclick="updateOrder('${o.id}', 'status', 'completed')" class="bg-gray-800 text-white px-3 py-1.5 rounded text-xs font-bold">Selesai</button>` : ''}
                     </div>
                 </div>`;
@@ -638,7 +609,7 @@
         async function updateOrder(id, key, val) { await db.from('orders').update({ [key]: val }).eq('id', id); loadSellerOrders(); }
         function openProductModal(p=null) { document.getElementById('productModal').classList.remove('hidden'); document.getElementById('productModal').classList.add('flex'); if(p) { document.getElementById('editProductId').value = p.id; document.getElementById('prodName').value = p.name; document.getElementById('prodPrice').value = p.price; document.getElementById('prodDesc').value = p.description || ''; document.getElementById('prodSoldOut').checked = p.is_sold_out; } else { document.getElementById('editProductId').value = ''; document.querySelector('#productModal form').reset(); } }
         async function handleProductSave(e) { e.preventDefault(); const btn = document.getElementById('btnSaveProd'); btn.innerText = '...'; btn.disabled = true; const id = document.getElementById('editProductId').value; const name = document.getElementById('prodName').value; const price = document.getElementById('prodPrice').value; const desc = document.getElementById('prodDesc').value; const soldOut = document.getElementById('prodSoldOut').checked; const file = document.getElementById('prodImage').files[0]; try { let imgUrl = null; if(file) imgUrl = await uploadImage(file); const pl = { name, price, description: desc, is_sold_out: soldOut }; if(imgUrl) pl.image_url = imgUrl; if(id) await db.from('products').update(pl).eq('id', id); else await db.from('products').insert([pl]); document.getElementById('productModal').classList.add('hidden'); document.getElementById('productModal').classList.remove('flex'); loadSellerMenu(); showToast('Tersimpan!', 'success'); } catch(err) { alert(err.message); } btn.innerText = 'Simpan'; btn.disabled = false; }
-        async function showPaymentSettings() { document.getElementById('paymentModal').classList.remove('hidden'); document.getElementById('paymentModal').classList.add('flex'); const { data } = await db.from('payment_methods').select('*').eq('is_active', true); const list = document.getElementById('existingPaymentList'); if(!data || data.length === 0) list.innerHTML = '<p class="text-gray-400 text-xs">Kosong</p>'; else list.innerHTML = data.map(m => `<div class="flex justify-between items-center bg-gray-50 p-2 rounded border"><div class="flex items-center gap-2">${m.qris_image_url ? `<img src="${m.qris_image_url}" class="w-8 h-8 object-contain">` : '??'}<div><p class="text-xs font-bold">${m.type}</p></div></div><button onclick="deletePayment('${m.id}')" class="text-red-500 hover:bg-red-50 p-1">???</button></div>`).join(''); }
+        async function showPaymentSettings() { document.getElementById('paymentModal').classList.remove('hidden'); document.getElementById('paymentModal').classList.add('flex'); const { data } = await db.from('payment_methods').select('*').eq('is_active', true); const list = document.getElementById('existingPaymentList'); if(!data || data.length === 0) list.innerHTML = '<p class="text-gray-400 text-xs">Kosong</p>'; else list.innerHTML = data.map(m => `<div class="flex justify-between items-center bg-gray-50 p-2 rounded border"><div class="flex items-center gap-2">${m.qris_image_url ? `<img src="${m.qris_image_url}" class="w-8 h-8 object-contain">` : '🏦'}<div><p class="text-xs font-bold">${m.type}</p></div></div><button onclick="deletePayment('${m.id}')" class="text-red-500 hover:bg-red-50 p-1">🗑️</button></div>`).join(''); }
         async function deletePayment(id) { if(confirm("Hapus?")) { await db.from('payment_methods').update({ is_active: false }).eq('id', id); showPaymentSettings(); } }
         async function handlePaymentSave(e) { e.preventDefault(); const file = document.getElementById('payImage').files[0]; let url = null; if(file) url = await uploadImage(file, 'qris'); await db.from('payment_methods').insert([{ type: document.getElementById('payType').value, account_number: document.getElementById('payNumber').value, qris_image_url: url }]); showPaymentSettings(); document.querySelector('#paymentModal form').reset(); }
         function showToast(msg, type='info') { const area = document.getElementById('notificationArea'); const el = document.createElement('div'); const color = type==='success' ? 'bg-[#059669]' : (type==='error' ? 'bg-red-500' : 'bg-gray-800'); el.className = `px-4 py-3 rounded-lg shadow-xl text-white text-sm font-bold transform transition-all translate-x-full ${color}`; el.innerText = msg; area.appendChild(el); setTimeout(()=>el.classList.remove('translate-x-full'), 10); setTimeout(()=>{ el.classList.add('opacity-0'); setTimeout(()=>el.remove(),300)}, 3000); }
@@ -646,7 +617,3 @@
         init();
     </script>
 </body>
-</html>
-
-
-
